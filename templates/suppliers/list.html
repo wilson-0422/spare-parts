@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}供应商管理 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>供应商管理</h2>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>联系人</th>
+            <th>电话</th>
+            <th>地址</th>
+            <th>供货种类</th>
+            <th>供货总额(元)</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in suppliers %}
+        <tr>
+            <td>{{ item.supplier.id }}</td>
+            <td>{{ item.supplier.name }}</td>
+            <td>{{ item.supplier.contact }}</td>
+            <td>{{ item.supplier.phone }}</td>
+            <td>{{ item.supplier.address }}</td>
+            <td>{{ item.material_count }}</td>
+            <td>{{ item.total_value }}</td>
+            <td>
+                <a href="/suppliers/{{ item.supplier.id }}" class="btn btn-sm btn-info">详情</a>
+                <a href="/suppliers/{{ item.supplier.id }}/reconcile" class="btn btn-sm btn-warning">对账</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

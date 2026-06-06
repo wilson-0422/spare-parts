@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}边角料处置 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>边角料处置</h2>
+    <a href="/scraps/create" class="btn btn-primary">新建处置</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>原料名称</th>
+            <th>处置数量</th>
+            <th>处置原因</th>
+            <th>处理人</th>
+            <th>状态</th>
+            <th>处置时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in scraps %}
+        <tr>
+            <td>{{ item.scrap.id }}</td>
+            <td>{{ item.material_name }}</td>
+            <td>{{ item.scrap.quantity }}</td>
+            <td>{{ item.scrap.reason }}</td>
+            <td>{{ item.scrap.handler }}</td>
+            <td>
+                {% if item.scrap.status == "approved" %}
+                <span class="badge badge-success">已处置</span>
+                {% elif item.scrap.status == "pending" %}
+                <span class="badge badge-warning">待审批</span>
+                {% elif item.scrap.status == "rejected" %}
+                <span class="badge badge-danger">已拒绝</span>
+                {% endif %}
+            </td>
+            <td>{{ item.scrap.created_at }}</td>
+            <td>
+                <a href="/scraps/{{ item.scrap.id }}" class="btn btn-sm btn-info">详情</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

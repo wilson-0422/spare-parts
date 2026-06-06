@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}备品备件全生命周期管理系统{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>备品备件全生命周期管理系统</h1>
+    <p>高效管理原料入厂、生产领用、边角料处置、库存预警与供应商对账</p>
+    {% if logged_in %}
+    <a href="/dashboard" class="btn btn-primary">进入仪表盘</a>
+    {% else %}
+    <a href="/login" class="btn btn-primary">登录系统</a>
+    <a href="/register" class="btn btn-secondary">注册账号</a>
+    {% endif %}
+</div>
+<div class="features">
+    <div class="feature-card">
+        <h3>原料入厂</h3>
+        <p>记录备品备件入库信息，关联供应商，管理规格与价格</p>
+    </div>
+    <div class="feature-card">
+        <h3>生产领用</h3>
+        <p>管理生产领用申请，自动扣减库存，记录领用用途</p>
+    </div>
+    <div class="feature-card">
+        <h3>边角料处置</h3>
+        <p>记录边角料处置信息，追踪处置原因与状态</p>
+    </div>
+    <div class="feature-card">
+        <h3>库存预警</h3>
+        <p>实时监控库存水平，低于安全库存自动预警</p>
+    </div>
+    <div class="feature-card">
+        <h3>供应商对账</h3>
+        <p>查看供应商供货明细，自动计算对账金额</p>
+    </div>
+</div>
+{% endblock %}

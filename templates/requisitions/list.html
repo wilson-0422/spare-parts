@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}生产领用 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>生产领用</h2>
+    <a href="/requisitions/create" class="btn btn-primary">新建领用</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>原料名称</th>
+            <th>数量</th>
+            <th>领用部门</th>
+            <th>申请人</th>
+            <th>用途</th>
+            <th>状态</th>
+            <th>申请时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in requisitions %}
+        <tr>
+            <td>{{ item.requisition.id }}</td>
+            <td>{{ item.material_name }}</td>
+            <td>{{ item.requisition.quantity }}</td>
+            <td>{{ item.requisition.department }}</td>
+            <td>{{ item.requisition.applicant }}</td>
+            <td>{{ item.requisition.purpose }}</td>
+            <td>
+                {% if item.requisition.status == "approved" %}
+                <span class="badge badge-success">已批准</span>
+                {% elif item.requisition.status == "pending" %}
+                <span class="badge badge-warning">待审批</span>
+                {% elif item.requisition.status == "rejected" %}
+                <span class="badge badge-danger">已拒绝</span>
+                {% endif %}
+            </td>
+            <td>{{ item.requisition.created_at }}</td>
+            <td>
+                <a href="/requisitions/{{ item.requisition.id }}" class="btn btn-sm btn-info">详情</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

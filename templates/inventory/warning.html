@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}库存预警 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>库存预警</h2>
+    <a href="/inventory" class="btn btn-secondary">返回库存列表</a>
+</div>
+{% if materials | length == 0 %}
+<div class="alert alert-success">所有物料库存正常，暂无预警</div>
+{% else %}
+<div class="alert alert-warning">以下物料库存低于安全库存，请及时补货</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>分类</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>当前库存</th>
+            <th>安全库存</th>
+            <th>缺口数量</th>
+            <th>供应商</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in materials %}
+        <tr class="warning-row">
+            <td>{{ item.material.id }}</td>
+            <td>{{ item.material.name }}</td>
+            <td>{{ item.material.category }}</td>
+            <td>{{ item.material.specification }}</td>
+            <td>{{ item.material.unit }}</td>
+            <td class="text-danger">{{ item.material.stock_quantity }}</td>
+            <td>{{ item.material.min_stock }}</td>
+            <td class="text-danger">{{ item.material.min_stock - item.material.stock_quantity }}</td>
+            <td>{{ item.supplier_name | default(value="未指定") }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

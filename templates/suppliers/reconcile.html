@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}供应商对账 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>供应商对账 - {{ reconciliation.supplier.name }}</h2>
+    <a href="/suppliers" class="btn btn-secondary">返回列表</a>
+</div>
+<div class="detail-card">
+    <div class="detail-row">
+        <span class="detail-label">供应商</span>
+        <span class="detail-value">{{ reconciliation.supplier.name }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">联系人</span>
+        <span class="detail-value">{{ reconciliation.supplier.contact }}</span>
+    </div>
+    <div class="detail-row">
+        <span class="detail-label">电话</span>
+        <span class="detail-value">{{ reconciliation.supplier.phone }}</span>
+    </div>
+</div>
+<h3>供货明细</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>原料名称</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>单价(元)</th>
+            <th>库存数量</th>
+            <th>金额(元)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in reconciliation.items %}
+        <tr>
+            <td>{{ item.material_name }}</td>
+            <td>{{ item.specification }}</td>
+            <td>{{ item.unit }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.stock_quantity }}</td>
+            <td>{{ item.total_price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5"><strong>合计</strong></td>
+            <td><strong>{{ reconciliation.total_amount }} 元</strong></td>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

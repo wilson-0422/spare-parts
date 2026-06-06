@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}新建领用 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>新建领用</h2>
+    <a href="/requisitions" class="btn btn-secondary">返回列表</a>
+</div>
+{% if error %}
+<div class="alert alert-error">{{ error }}</div>
+{% endif %}
+<form method="POST" action="/requisitions/create" class="form">
+    <div class="form-group">
+        <label for="material_id">选择原料</label>
+        <select id="material_id" name="material_id" required>
+            <option value="">请选择原料</option>
+            {% for item in materials %}
+            <option value="{{ item.material.id }}">{{ item.material.name }} ({{ item.material.specification }}) - 库存: {{ item.material.stock_quantity }}{{ item.material.unit }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quantity">领用数量</label>
+        <input type="number" id="quantity" name="quantity" step="0.01" min="0.01" required>
+    </div>
+    <div class="form-group">
+        <label for="department">领用部门</label>
+        <select id="department" name="department" required>
+            <option value="生产一部">生产一部</option>
+            <option value="生产二部">生产二部</option>
+            <option value="设备维修部">设备维修部</option>
+            <option value="电气维修部">电气维修部</option>
+            <option value="质检部">质检部</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="applicant">申请人</label>
+        <input type="text" id="applicant" name="applicant" required>
+    </div>
+    <div class="form-group">
+        <label for="purpose">用途说明</label>
+        <textarea id="purpose" name="purpose" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">提交申请</button>
+</form>
+{% endblock %}

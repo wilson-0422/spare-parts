@@ -1,0 +1,20 @@
+<header class="header">
+    <nav class="nav container">
+        <a href="/" class="nav-brand">备品备件管理</a>
+        <div class="nav-links">
+            {% if logged_in %}
+            <a href="/dashboard">仪表盘</a>
+            <a href="/materials">原料管理</a>
+            <a href="/requisitions">生产领用</a>
+            <a href="/scraps">边角料处置</a>
+            <a href="/inventory">库存管理</a>
+            <a href="/suppliers">供应商管理</a>
+            <span class="nav-user">{{ username }}</span>
+            <a href="/logout" class="btn btn-sm btn-secondary">退出</a>
+            {% else %}
+            <a href="/login">登录</a>
+            <a href="/register">注册</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>

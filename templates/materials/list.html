@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}原料管理 - 备品备件管理系统{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>原料管理</h2>
+    <a href="/materials/create" class="btn btn-primary">新增原料</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>分类</th>
+            <th>规格</th>
+            <th>单位</th>
+            <th>库存数量</th>
+            <th>安全库存</th>
+            <th>单价(元)</th>
+            <th>供应商</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in materials %}
+        <tr class="{% if item.material.stock_quantity <= item.material.min_stock %}warning-row{% endif %}">
+            <td>{{ item.material.id }}</td>
+            <td>{{ item.material.name }}</td>
+            <td>{{ item.material.category }}</td>
+            <td>{{ item.material.specification }}</td>
+            <td>{{ item.material.unit }}</td>
+            <td>{{ item.material.stock_quantity }}</td>
+            <td>{{ item.material.min_stock }}</td>
+            <td>{{ item.material.price }}</td>
+            <td>{{ item.supplier_name | default(value="未指定") }}</td>
+            <td>
+                <a href="/materials/{{ item.material.id }}" class="btn btn-sm btn-info">详情</a>
+                <a href="/materials/{{ item.material.id }}/edit" class="btn btn-sm btn-warning">编辑</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
